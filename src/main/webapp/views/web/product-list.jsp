@@ -6,7 +6,6 @@
     <title>Tất cả sản phẩm</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ecomart.css">
 </head><body>
-<jsp:include page="/views/components/header.jsp" />
 <section class="page-hero"><div class="container-eco"><h1>Tất cả sản phẩm</h1><p>Danh sách được phân trang trực tiếp bằng JPA.</p></div></section>
 <main class="section"><div class="container-eco">
     <div class="result-bar"><span>Tìm thấy <strong>${totalProducts}</strong> sản phẩm</span><span>Trang ${currentPage}/${totalPages == 0 ? 1 : totalPages}</span></div>
@@ -33,5 +32,4 @@
         <c:if test="${currentPage < totalPages}"><a href="${pageContext.request.contextPath}/product?page=${currentPage + 1}">›</a></c:if>
     </nav></c:if>
 </div></main>
-<jsp:include page="/views/components/footer.jsp" />
 </body></html>

@@ -5,10 +5,11 @@
 <div class="admin-main"><header class="admin-topbar"><strong>Hệ thống quản trị EcoMart</strong><span>${empty sessionScope.account ? 'Khách quản trị' : sessionScope.account.fullname}</span></header>
 <main class="admin-content">
     <div class="admin-title"><div><h1>Quản lý danh mục</h1><p>Tìm kiếm, thêm, sửa, xóa và upload icon.</p></div><a class="btn-eco" href="${pageContext.request.contextPath}/admin/category/add">+ Thêm danh mục</a></div>
+    <c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
     <c:if test="${not empty sessionScope.categoryError}"><div class="alert-eco alert-eco--error">${sessionScope.categoryError}</div><c:remove var="categoryError" scope="session"/></c:if>
     <div class="panel">
         <form method="get" action="${pageContext.request.contextPath}/admin/category/list" style="display:flex;gap:10px;margin-bottom:20px">
-            <input class="form-control-eco" style="max-width:360px" name="keyword" value="${keyword}" placeholder="Tìm tên danh mục...">
+            <input class="form-control-eco" style="max-width:360px" name="keyword" value="${keyword}" maxlength="255" placeholder="Tìm tên danh mục...">
             <button class="btn-eco" type="submit">Tìm kiếm</button>
             <a class="btn-eco btn-eco--light" href="${pageContext.request.contextPath}/admin/category/list">Làm mới</a>
         </form>
@@ -19,7 +20,7 @@
             <td><span class="status ${cate.status == 1 ? 'status--active' : 'status--inactive'}">${cate.status == 1 ? 'Hoạt động' : 'Tạm ẩn'}</span></td>
             <td><div class="actions">
                 <a class="btn-eco btn-eco--light btn-eco--small" href="${pageContext.request.contextPath}/admin/category/edit?id=${cate.id}">Sửa</a>
-                <form class="inline-form" method="post" action="${pageContext.request.contextPath}/admin/category/delete" onsubmit="return confirm('Xóa danh mục này?')">
+                <form class="inline-form" method="post" action="${pageContext.request.contextPath}/admin/category/delete">
                     <input type="hidden" name="id" value="${cate.id}"><button class="btn-eco btn-eco--danger btn-eco--small" type="submit">Xóa</button>
                 </form>
             </div></td>

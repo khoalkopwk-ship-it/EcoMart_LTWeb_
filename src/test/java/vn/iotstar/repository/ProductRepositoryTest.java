@@ -16,13 +16,25 @@ class ProductRepositoryTest {
     private static ICategoryRepository categories;
     private static IProductRepository products;
 
+    /**
+     * JUnit tạo factory jpa-test và truyền cùng nguồn EntityManager cho CategoryRepository/ProductRepository
+     * để kiểm thử sản phẩm cùng quan hệ danh mục trên H2.
+     */
     @BeforeAll static void setUp() {
         factory = Persistence.createEntityManagerFactory("jpa-test");
         categories = new CategoryRepository(factory::createEntityManager);
         products = new ProductRepository(factory::createEntityManager);
     }
+    /**
+     * JUnit gọi sau các test để đóng factory kiểm thử nếu còn mở, giải phóng tài nguyên JPA.
+     */
     @AfterAll static void tearDown() { if (factory != null && factory.isOpen()) factory.close(); }
 
+    /**
+     * Tạo danh mục rồi thêm 12 sản phẩm qua repository và kiểm tra đọc lại theo id. Xác nhận tổng số là 12,
+     * trang đầu có 6 phần tử và truy vấn mới nhất trả 10 phần tử; test này kiểm tra số lượng, không đối chiếu
+     * thứ tự từng sản phẩm.
+     */
     @Test void shouldCreatePaginateAndGetTenNewestProducts() {
         Category category = new Category("Test Product Category", null);
         categories.insert(category);

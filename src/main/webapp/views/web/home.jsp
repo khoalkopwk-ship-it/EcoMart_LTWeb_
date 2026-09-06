@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ecomart.css">
 </head>
 <body>
-<jsp:include page="/views/components/header.jsp" />
 <section class="hero">
     <div class="container-eco"><div class="hero__content">
         <span class="eyebrow">Phong cách EcoMarts</span>
@@ -63,5 +62,4 @@
         </div>
     </div>
 </section>
-<jsp:include page="/views/components/footer.jsp" />
 </body></html>

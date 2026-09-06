@@ -18,12 +18,19 @@ class CategoryRepositoryTest {
     private static EntityManagerFactory factory;
     private static ICategoryRepository repository;
 
+    /**
+     * JUnit gọi một lần trước các test: tạo factory từ persistence unit jpa-test và truyền supplier cho
+     * CategoryRepository để thao tác trên cơ sở dữ liệu H2 kiểm thử.
+     */
     @BeforeAll
     static void setUp() {
         factory = Persistence.createEntityManagerFactory("jpa-test");
         repository = new CategoryRepository(factory::createEntityManager);
     }
 
+    /**
+     * JUnit gọi sau các test để đóng factory nếu còn mở và giải phóng cơ sở dữ liệu/tài nguyên kiểm thử.
+     */
     @AfterAll
     static void tearDown() {
         if (factory != null && factory.isOpen()) {
@@ -31,6 +38,10 @@ class CategoryRepositoryTest {
         }
     }
 
+    /**
+     * Kiểm thử chuỗi repository thêm → tìm theo id/tên không phân biệt hoa thường → sửa → tìm theo từ khóa →
+     * xóa; kiểm tra id tự tăng, dữ liệu đọc lại và count ở từng mốc phù hợp.
+     */
     @Test
     void shouldCompleteCategoryCrudFlow() {
         Category category = new Category("Quần áo nam", "category/nam.png");

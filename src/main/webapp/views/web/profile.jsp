@@ -13,10 +13,12 @@
 <html lang="vi">
 <head>
     <title>Thông tin cá nhân | UTE EcoMart</title>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/profile.css">
 </head>
 
 <body>
-
+<main class="eco-main">
 <section class="profile-page">
     <div class="container-eco">
 
@@ -98,6 +100,8 @@
                            name="phone"
                            type="tel"
                            maxlength="20"
+                           minlength="8"
+                           pattern="[0-9+() .-]{8,20}"
                            value="${profile.phone}"
                            placeholder="Ví dụ: 0912345678">
                 </div>
@@ -120,6 +124,6 @@
         </div>
     </div>
 </section>
-
+</main>
 </body>
 </html>

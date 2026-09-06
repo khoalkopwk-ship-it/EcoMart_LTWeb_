@@ -7,11 +7,11 @@
 <div class="panel"><c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
 <form class="form-grid" method="post" action="${pageContext.request.contextPath}/admin/product/edit" enctype="multipart/form-data">
     <input type="hidden" name="id" value="${product.id}">
-    <div class="form-group"><label>Tên sản phẩm</label><input class="form-control-eco" name="name" value="${product.name}" required></div>
-    <div class="form-group"><label>Giá</label><input class="form-control-eco" type="number" min="0" step="1000" name="price" value="${product.price}" required></div>
-    <div class="form-group"><label>Danh mục</label><select class="form-control-eco" name="categoryId" required><c:forEach items="${categories}" var="cate"><option value="${cate.id}" ${cate.id == product.category.id ? 'selected' : ''}>${cate.name}</option></c:forEach></select></div>
+    <div class="form-group"><label for="name">Tên sản phẩm</label><input id="name" class="form-control-eco" name="name" value="${hasSubmittedValues ? enteredName : product.name}" maxlength="255" required></div>
+    <div class="form-group"><label for="price">Giá</label><input id="price" class="form-control-eco" type="number" min="0" max="9999999999999999.99" step="0.01" name="price" value="${hasSubmittedValues ? enteredPrice : product.price}" required></div>
+    <div class="form-group"><label for="categoryId">Danh mục</label><select id="categoryId" class="form-control-eco" name="categoryId" required><c:forEach items="${categories}" var="cate"><option value="${cate.id}" ${(hasSubmittedValues ? enteredCategory == cate.id : cate.id == product.category.id) ? 'selected' : ''}>${cate.name}</option></c:forEach></select></div>
     <div class="form-group"><label>Ảnh hiện tại</label><c:if test="${not empty product.image}"><img class="preview-image" src="${pageContext.request.contextPath}/image?fname=${product.image}" alt="${product.name}"></c:if></div>
-    <div class="form-group form-group--full"><label>Thay ảnh sản phẩm</label><input class="form-control-eco" type="file" name="image" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
-    <div class="form-group form-group--full"><label>Mô tả</label><textarea class="form-control-eco" rows="5" name="description">${product.description}</textarea></div>
+    <div class="form-group form-group--full"><label for="image">Thay ảnh sản phẩm</label><input id="image" class="form-control-eco" type="file" name="image" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
+    <div class="form-group form-group--full"><label for="description">Mô tả</label><textarea id="description" class="form-control-eco" rows="5" name="description" maxlength="255">${hasSubmittedValues ? enteredDescription : product.description}</textarea></div>
     <div class="form-actions"><button class="btn-eco" type="submit">Lưu thay đổi</button><a class="btn-eco btn-eco--light" href="${pageContext.request.contextPath}/admin/product/list">Quay lại</a></div>
 </form></div></main></div></body></html>

@@ -35,9 +35,15 @@ BEGIN
         images NVARCHAR(255) NULL,
         status INT NOT NULL CONSTRAINT DF_Users_Status DEFAULT 1,
         createdDate DATETIME2 NOT NULL
-            CONSTRAINT DF_Users_Created DEFAULT SYSDATETIME()
+            CONSTRAINT DF_Users_Created DEFAULT SYSDATETIME(),
+        role VARCHAR(10) NOT NULL CONSTRAINT DF_Users_Role DEFAULT 'USER'
     );
 END;
+GO
+
+IF COL_LENGTH('dbo.Users', 'role') IS NULL
+    ALTER TABLE dbo.Users ADD role VARCHAR(10) NOT NULL
+        CONSTRAINT DF_Users_Role_Added DEFAULT 'USER';
 GO
 
 IF OBJECT_ID(N'dbo.Products', N'U') IS NULL

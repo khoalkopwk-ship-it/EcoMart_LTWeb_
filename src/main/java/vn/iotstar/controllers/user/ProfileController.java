@@ -1,4 +1,4 @@
-package vn.iotstar.controllers.web;
+package vn.iotstar.controllers.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -22,6 +22,11 @@ public class ProfileController extends HttpServlet {
     private final UserService userService =
             new UserServiceImpl();
 
+    /**
+     * Lấy account bằng getAccount; chưa đăng nhập thì chuyển /login. Tải hồ sơ mới nhất qua
+     * UserService.findById, hủy session nếu tài khoản không còn tồn tại; ngược lại cập nhật session.account
+     * rồi gọi render.
+     */
     @Override
     protected void doGet(
             HttpServletRequest request,
@@ -49,6 +54,12 @@ public class ProfileController extends HttpServlet {
         render(request, response, profile);
     }
 
+    /**
+     * Yêu cầu account trong session qua getAccount, đọc họ tên/số điện thoại và lưu ảnh qua
+     * ImageUtil.saveUserImage; giữ đường dẫn ảnh cũ khi không tải ảnh mới. Gọi UserService.updateProfile rồi
+     * cập nhật session.account và chuyển /profile?updated=1; lỗi dữ liệu hoặc trạng thái upload thì gọi render
+     * với hồ sơ hiện có và thông báo.
+     */
     @Override
     protected void doPost(
             HttpServletRequest request,
@@ -104,9 +115,17 @@ public class ProfileController extends HttpServlet {
                     "error", exception.getMessage());
 
             render(request, response, account);
+        } catch (ServletException exception) {
+            request.setAttribute(
+                    "error", "Ảnh tải lên không hợp lệ hoặc vượt quá 5 MB");
+            render(request, response, account);
         }
     }
 
+    /**
+     * Đọc thuộc tính account từ session hiện có và chỉ trả về nếu là User; trả null nếu chưa có session hoặc
+     * sai kiểu. doGet/doPost dùng để xác định tài khoản đang đăng nhập mà không tạo session mới.
+     */
     private User getAccount(HttpServletRequest request) {
         HttpSession session =
                 request.getSession(false);
@@ -119,6 +138,10 @@ public class ProfileController extends HttpServlet {
         return value instanceof User ? (User) value : null;
     }
 
+    /**
+     * Đặt profile vào request và include profile.jsp để EcoMartSiteMeshFilter thu response HTML rồi ghép vào
+     * request bên ngoài và ghép vào Bootstrap decorator main.jsp; doGet/doPost dùng chung hàm này.
+     */
     private void render(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -128,7 +151,6 @@ public class ProfileController extends HttpServlet {
         request.setAttribute("profile", profile);
         response.setContentType("text/html;charset=UTF-8");
 
-        // Quan trọng với SiteMesh + Tomcat 11
         request.getRequestDispatcher(
                 "/views/web/profile.jsp"
         ).include(request, response);

@@ -9,8 +9,10 @@
         <nav class="main-nav">
             <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
             <a href="${pageContext.request.contextPath}/product">Sản phẩm</a>
-            <a href="${pageContext.request.contextPath}/admin/category/list">Danh mục</a>
-            <a href="${pageContext.request.contextPath}/admin/product/list">Quản trị</a>
+            <a href="${pageContext.request.contextPath}/category">Danh mục</a>
+            <c:if test="${sessionScope.account.role == 'ADMIN'}">
+                <a href="${pageContext.request.contextPath}/admin/category/list">Quản trị</a>
+            </c:if>
             <c:choose>
                 <c:when test="${not empty sessionScope.account}">
                     <span class="nav-user">

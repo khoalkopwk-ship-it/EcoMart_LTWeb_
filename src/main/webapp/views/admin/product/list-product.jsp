@@ -11,7 +11,7 @@
     <td class="price" style="font-size:16px"><fmt:formatNumber value="${p.price}" type="number" maxFractionDigits="0"/> ₫</td>
     <td>${p.category.name}</td><td>${p.createdDate}</td>
     <td><div class="actions"><a class="btn-eco btn-eco--light btn-eco--small" href="${pageContext.request.contextPath}/admin/product/edit?id=${p.id}">Sửa</a>
-        <form class="inline-form" method="post" action="${pageContext.request.contextPath}/admin/product/delete" onsubmit="return confirm('Xóa sản phẩm này?')"><input type="hidden" name="id" value="${p.id}"><button class="btn-eco btn-eco--danger btn-eco--small" type="submit">Xóa</button></form>
+        <form class="inline-form" method="post" action="${pageContext.request.contextPath}/admin/product/delete"><input type="hidden" name="id" value="${p.id}"><button class="btn-eco btn-eco--danger btn-eco--small" type="submit">Xóa</button></form>
     </div></td>
 </tr></c:forEach>
 <c:if test="${empty products}"><tr><td colspan="7" style="text-align:center;padding:35px">Chưa có sản phẩm.</td></tr></c:if>

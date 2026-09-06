@@ -7,7 +7,7 @@
     <h2>Nhập mã OTP</h2><p class="auth-card__lead">Kiểm tra hộp thư và nhập 6 chữ số được gửi đến email đăng ký.</p>
     <c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
     <form class="auth-form" method="post" action="${pageContext.request.contextPath}/verify-otp">
-        <div><label>Mã OTP</label><input name="otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus></div>
+        <div><label for="otp">Mã OTP</label><input id="otp" name="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required autofocus></div>
         <button class="btn-eco" type="submit">Kích hoạt tài khoản</button>
     </form><div class="auth-links"><a href="${pageContext.request.contextPath}/register">Đăng ký lại</a></div>
 </div></section></main></body></html>

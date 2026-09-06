@@ -13,6 +13,26 @@
     </display-name>
 
     <filter>
+        <filter-name>adminAuthorization</filter-name>
+        <filter-class>vn.iotstar.config.AdminAuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>adminAuthorization</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>userAuthentication</filter-name>
+        <filter-class>vn.iotstar.config.UserAuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>userAuthentication</filter-name>
+        <url-pattern>/category</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter>
         <filter-name>ecoMartSiteMesh</filter-name>
 
         <filter-class>
@@ -27,7 +47,7 @@
 
     <filter-mapping>
         <filter-name>ecoMartSiteMesh</filter-name>
-        <url-pattern>/profile</url-pattern>
+        <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
@@ -40,6 +60,8 @@
     </welcome-file-list>
 
     <session-config>
+
+        <session-timeout>30</session-timeout>
 
         <tracking-mode>
             COOKIE

@@ -4,7 +4,6 @@
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${product.name}</title><link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ecomart.css">
 </head><body>
-<jsp:include page="/views/components/header.jsp" />
 <main class="section"><div class="container-eco"><article class="detail-card">
     <div class="detail-image"><img src="${pageContext.request.contextPath}/image?fname=${product.image}" alt="${product.name}"></div>
     <div class="detail-info">
@@ -16,5 +15,4 @@
         <a class="btn-eco btn-eco--light" href="${pageContext.request.contextPath}/product">← Quay lại danh sách</a>
     </div>
 </article></div></main>
-<jsp:include page="/views/components/footer.jsp" />
 </body></html>

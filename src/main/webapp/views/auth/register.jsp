@@ -7,11 +7,11 @@
     <h2>Đăng ký tài khoản</h2><p class="auth-card__lead">Nhập thông tin để nhận mã OTP 6 chữ số.</p>
     <c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
     <form class="auth-form" method="post" action="${pageContext.request.contextPath}/register">
-        <div><label>Họ và tên</label><input name="fullname" value="${fullname}" required></div>
-        <div><label>Tên đăng nhập</label><input name="username" value="${username}" required></div>
-        <div><label>Email</label><input type="email" name="email" value="${email}" required></div>
-        <div><label>Mật khẩu</label><input type="password" name="password" minlength="6" required></div>
-        <div><label>Xác nhận mật khẩu</label><input type="password" name="confirmPassword" minlength="6" required></div>
+        <div><label for="fullname">Họ và tên</label><input id="fullname" name="fullname" value="${fullname}" maxlength="255" required></div>
+        <div><label for="username">Tên đăng nhập</label><input id="username" name="username" value="${username}" minlength="3" maxlength="100" pattern="[A-Za-z0-9._-]{3,100}" required></div>
+        <div><label for="email">Email</label><input id="email" type="email" name="email" value="${email}" maxlength="255" required></div>
+        <div><label for="password">Mật khẩu</label><input id="password" type="password" name="password" minlength="6" maxlength="255" required></div>
+        <div><label for="confirmPassword">Xác nhận mật khẩu</label><input id="confirmPassword" type="password" name="confirmPassword" minlength="6" maxlength="255" required></div>
         <button class="btn-eco" type="submit">Gửi mã OTP</button>
     </form><div class="auth-links"><a href="${pageContext.request.contextPath}/home">← Trang chủ</a><a href="${pageContext.request.contextPath}/login">Đã có tài khoản?</a></div>
 </div></section></main></body></html>

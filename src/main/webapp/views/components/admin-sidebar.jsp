@@ -12,7 +12,6 @@
            href="${pageContext.request.contextPath}/admin/category/list">▦ Quản lý danh mục</a>
         <a class="${activeMenu eq 'product' ? 'active' : ''}"
            href="${pageContext.request.contextPath}/admin/product/list">▣ Quản lý sản phẩm</a>
-        <a href="${pageContext.request.contextPath}/product">◎ Trang sản phẩm</a>
     </nav>
     <div class="admin-sidebar__label">Tài khoản</div>
     <nav>

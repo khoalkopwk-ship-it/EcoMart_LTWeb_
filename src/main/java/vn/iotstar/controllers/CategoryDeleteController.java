@@ -15,6 +15,11 @@ public class CategoryDeleteController extends HttpServlet {
 
     private final CategoryService categoryService = new CategoryServiceImpl();
 
+    /**
+     * Đọc id và gọi CategoryService.delete, từ đó repository xóa danh mục trong transaction. Thành công chuyển
+     * về danh sách; id sai trả HTTP 400, không tìm thấy trả HTTP 404. Lỗi runtime được chuyển thành thông báo
+     * categoryError trong session để trang danh sách hiển thị.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

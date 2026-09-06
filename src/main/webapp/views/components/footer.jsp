@@ -4,7 +4,7 @@
         <div class="footer-grid">
             <div>
                 <h4>UTE EcoMart</h4>
-                <p>Không gian mua sắm thân thiện, kết hợp phong cách thiết kế EcoMarts với bài tập Servlet MVC và JPA.</p>
+                <p>Bài tập Servlet MVC và JPA.</p>
             </div>
             <div>
                 <h4>Liên kết</h4>
@@ -13,8 +13,8 @@
             </div>
             <div>
                 <h4>Hỗ trợ</h4>
-                <p>Email: support@ute-ecomart.local</p>
-                <p>Giờ làm việc: 08:00–21:00</p>
+                <p>Email: 24110253@hcmute.edu.vn</p>
+                <p>Thời gian làm việc: 24/7</p>
             </div>
         </div>
         <div class="footer-bottom">© 2026 UTE EcoMart · Servlet MVC · JPA/Hibernate</div>

@@ -7,8 +7,8 @@
     <h2>Đặt mật khẩu mới</h2><p class="auth-card__lead">Mật khẩu phải có ít nhất 6 ký tự.</p>
     <c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
     <form class="auth-form" method="post" action="${pageContext.request.contextPath}/reset-password">
-        <div><label>Mật khẩu mới</label><input type="password" name="password" minlength="6" required autofocus></div>
-        <div><label>Xác nhận mật khẩu</label><input type="password" name="confirmPassword" minlength="6" required></div>
+        <div><label for="password">Mật khẩu mới</label><input id="password" type="password" name="password" minlength="6" maxlength="255" required autofocus></div>
+        <div><label for="confirmPassword">Xác nhận mật khẩu</label><input id="confirmPassword" type="password" name="confirmPassword" minlength="6" maxlength="255" required></div>
         <button class="btn-eco" type="submit">Cập nhật mật khẩu</button>
     </form>
 </div></section></main></body></html>

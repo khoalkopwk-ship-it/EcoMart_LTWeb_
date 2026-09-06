@@ -7,10 +7,10 @@
     <div class="panel"><c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
         <form class="form-grid" method="post" action="${pageContext.request.contextPath}/admin/category/edit" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${category.id}">
-            <div class="form-group"><label>Tên danh mục</label><input class="form-control-eco" name="name" value="${category.name}" required></div>
-            <div class="form-group"><label>Trạng thái</label><select class="form-control-eco" name="status"><option value="1" ${category.status == 1 ? 'selected' : ''}>Hoạt động</option><option value="0" ${category.status == 0 ? 'selected' : ''}>Tạm ẩn</option></select></div>
+            <div class="form-group"><label for="name">Tên danh mục</label><input id="name" class="form-control-eco" name="name" value="${category.name}" maxlength="255" required></div>
+            <div class="form-group"><label for="status">Trạng thái</label><select id="status" class="form-control-eco" name="status" required><option value="1" ${category.status == 1 ? 'selected' : ''}>Hoạt động</option><option value="0" ${category.status == 0 ? 'selected' : ''}>Tạm ẩn</option></select></div>
             <div class="form-group"><label>Icon hiện tại</label><c:if test="${not empty category.icon}"><img class="preview-image" src="${pageContext.request.contextPath}/image?fname=${category.icon}" alt="${category.name}"></c:if></div>
-            <div class="form-group"><label>Thay icon</label><input class="form-control-eco" type="file" name="icon" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
+            <div class="form-group"><label for="icon">Thay icon</label><input id="icon" class="form-control-eco" type="file" name="icon" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
             <div class="form-actions"><button class="btn-eco" type="submit">Lưu thay đổi</button><a class="btn-eco btn-eco--light" href="${pageContext.request.contextPath}/admin/category/list">Quay lại</a></div>
         </form>
     </div>

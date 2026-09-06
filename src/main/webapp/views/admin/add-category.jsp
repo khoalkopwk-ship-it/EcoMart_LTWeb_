@@ -6,9 +6,9 @@
     <div class="admin-title"><div><h1>Thêm danh mục</h1><p>Biểu mẫu Multipart tương thích Jakarta Servlet.</p></div></div>
     <div class="panel"><c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
         <form class="form-grid" method="post" action="${pageContext.request.contextPath}/admin/category/add" enctype="multipart/form-data">
-            <div class="form-group"><label>Tên danh mục</label><input class="form-control-eco" name="name" value="${enteredName}" required></div>
-            <div class="form-group"><label>Trạng thái</label><select class="form-control-eco" name="status"><option value="1">Hoạt động</option><option value="0" ${enteredStatus == '0' ? 'selected' : ''}>Tạm ẩn</option></select></div>
-            <div class="form-group form-group--full"><label>Icon danh mục</label><input class="form-control-eco" type="file" name="icon" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
+            <div class="form-group"><label for="name">Tên danh mục</label><input id="name" class="form-control-eco" name="name" value="${enteredName}" maxlength="255" required></div>
+            <div class="form-group"><label for="status">Trạng thái</label><select id="status" class="form-control-eco" name="status" required><option value="1">Hoạt động</option><option value="0" ${enteredStatus == '0' ? 'selected' : ''}>Tạm ẩn</option></select></div>
+            <div class="form-group form-group--full"><label for="icon">Icon danh mục</label><input id="icon" class="form-control-eco" type="file" name="icon" accept=".jpg,.jpeg,.png,.gif,.webp"></div>
             <div class="form-actions"><button class="btn-eco" type="submit">Lưu danh mục</button><a class="btn-eco btn-eco--light" href="${pageContext.request.contextPath}/admin/category/list">Quay lại</a></div>
         </form>
     </div>

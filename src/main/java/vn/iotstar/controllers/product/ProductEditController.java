@@ -15,6 +15,10 @@ import vn.iotstar.utils.ImageUtil;
 public class ProductEditController extends HttpServlet {
     private final ProductService productService = new ProductServiceImpl();
     private final CategoryService categoryService = new CategoryServiceImpl();
+    /**
+     * Lấy sản phẩm bằng ProductService.get và danh mục bằng CategoryService.getAll rồi include
+     * edit-product.jsp. Id sai định dạng trả HTTP 400; sản phẩm không tồn tại trả HTTP 404.
+     */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -22,9 +26,14 @@ public class ProductEditController extends HttpServlet {
             if (product == null) { response.sendError(404, "Không tìm thấy sản phẩm"); return; }
             request.setAttribute("product", product);
             request.setAttribute("categories", categoryService.getAll());
-            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").include(request, response);
         } catch (NumberFormatException exception) { response.sendError(400, "ID không hợp lệ"); }
     }
+    /**
+     * Dựng Product mang id cần sửa từ biểu mẫu, kiểm tra danh mục qua CategoryService và lưu ảnh bằng
+     * ImageUtil. Gọi ProductService.edit để cập nhật dữ liệu, giữ ảnh cũ nếu không có ảnh mới, rồi chuyển danh
+     * sách. Lỗi dữ liệu tải lại sản phẩm và danh mục để hiện form; id sai trả HTTP 400.
+     */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -41,13 +50,34 @@ public class ProductEditController extends HttpServlet {
             product.setImage(ImageUtil.saveProductImage(getServletContext(), request.getPart("image")));
             productService.edit(product);
             response.sendRedirect(request.getContextPath() + "/admin/product/list");
-        } catch (IllegalArgumentException exception) {
+        } catch (IllegalArgumentException | IllegalStateException exception) {
             request.setAttribute("error", exception.getMessage());
             try { id = Integer.parseInt(request.getParameter("id")); }
             catch (NumberFormatException ignored) { response.sendError(400, "ID không hợp lệ"); return; }
             request.setAttribute("product", productService.get(id));
             request.setAttribute("categories", categoryService.getAll());
-            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
+            preserve(request);
+            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").include(request, response);
+        } catch (ServletException exception) {
+            request.setAttribute("error", "Ảnh tải lên không hợp lệ hoặc vượt quá 5 MB");
+            try { id = Integer.parseInt(request.getParameter("id")); }
+            catch (NumberFormatException ignored) { response.sendError(400, "ID không hợp lệ"); return; }
+            request.setAttribute("product", productService.get(id));
+            request.setAttribute("categories", categoryService.getAll());
+            preserve(request);
+            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").include(request, response);
         }
+    }
+
+    /**
+     * Giữ các giá trị người dùng vừa nhập trong request khi validation thất bại. edit-product.jsp ưu tiên
+     * nhóm entered* này thay vì dữ liệu cũ vừa tải lại từ database.
+     */
+    private void preserve(HttpServletRequest request) {
+        request.setAttribute("hasSubmittedValues", true);
+        request.setAttribute("enteredName", request.getParameter("name"));
+        request.setAttribute("enteredPrice", request.getParameter("price"));
+        request.setAttribute("enteredDescription", request.getParameter("description"));
+        request.setAttribute("enteredCategory", request.getParameter("categoryId"));
     }
 }

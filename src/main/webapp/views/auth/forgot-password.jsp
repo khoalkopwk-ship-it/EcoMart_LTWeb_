@@ -7,7 +7,7 @@
     <h2>Quên mật khẩu</h2><p class="auth-card__lead">Nhập email đã dùng khi đăng ký.</p>
     <c:if test="${not empty error}"><div class="alert-eco alert-eco--error">${error}</div></c:if>
     <form class="auth-form" method="post" action="${pageContext.request.contextPath}/forgot-password">
-        <div><label>Email</label><input type="email" name="email" value="${email}" required autofocus></div>
+        <div><label for="email">Email</label><input id="email" type="email" name="email" value="${email}" maxlength="255" required autofocus></div>
         <button class="btn-eco" type="submit">Gửi OTP đặt lại mật khẩu</button>
     </form><div class="auth-links"><a href="${pageContext.request.contextPath}/login">← Quay lại đăng nhập</a></div>
 </div></section></main></body></html>
